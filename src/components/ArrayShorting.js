@@ -11,7 +11,7 @@ export class ArrayShorting extends Component {
       arrayLength: null,
       bar1: null,
       but2: null,
-      bar1Color: '#696FFB',
+      bar1Color: '',
       bar2Color: '#fe346e',
       solvedBars: [],
       array: [],
@@ -56,7 +56,7 @@ export class ArrayShorting extends Component {
             }
           }
           this.setState({
-            bar1Color: this.state.bar2Color,
+            bar1Color: "#fe346e",
             solvedBars: newSolvedBars,
             array: newArray,
             bar1: j + 1,
@@ -81,6 +81,7 @@ export class ArrayShorting extends Component {
             newArray[j] = newArray[i]
             newArray[i] = temp
             this.setState({
+              bar1Color: '#696FFB',
               array: newArray,
               bar1: j,
               bar2: i
