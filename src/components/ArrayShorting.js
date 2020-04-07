@@ -11,6 +11,8 @@ export class ArrayShorting extends Component {
       arrayLength: null,
       bar1: null,
       but2: null,
+      bar1Color: '#696FFB',
+      bar2Color: '#fe346e',
       solvedBars: [],
       array: [],
       arraySolvedComplete: false
@@ -54,10 +56,11 @@ export class ArrayShorting extends Component {
             }
           }
           this.setState({
+            bar1Color: this.state.bar2Color,
             solvedBars: newSolvedBars,
             array: newArray,
-            bar1: j,
-            bar2: j + 1
+            bar1: j + 1,
+            bar2: j,
           })
         }, 0.1);
       }
@@ -77,17 +80,17 @@ export class ArrayShorting extends Component {
             let temp = newArray[j]
             newArray[j] = newArray[i]
             newArray[i] = temp
+            this.setState({
+              array: newArray,
+              bar1: j,
+              bar2: i
+            })
           }
           if (i == newArray.length - 1) {
             this.setState({
               arraySolvedComplete: true
             })
           }
-          this.setState({
-            array: newArray,
-            bar1: j,
-            bar2: j + 1
-          })
         }, 0.1);
       }
     }
@@ -128,7 +131,7 @@ export class ArrayShorting extends Component {
                   className='bar'
                   style={{
                     height: `${(e * 100) / this.state.maxNum}%`,
-                    backgroundColor: `${this.state.solvedBars.includes(key) ? '#696FFB' : (key === this.state.bar1 || key === this.state.bar2) && !this.state.solvedBars.includes(key) ? '#fe346e' : '#1F2940'}`,
+                    backgroundColor: `${this.state.solvedBars.includes(key) ? '#696FFB' : key === this.state.bar1 ? `${this.state.bar1Color}` : key === this.state.bar2 ? `${this.state.bar2Color}` : '#1F2940'}`,
                     margin: `${this.state.arrayLength < 50 ? '0px 6px' : this.state.arrayLength < 100 ? '0px 4px' : this.state.arrayLength < 150 ? '0px 2px' : '0px 1px'}`
                   }}
                 >
