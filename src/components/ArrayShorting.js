@@ -32,7 +32,7 @@ export class ArrayShorting extends Component {
     })
 
   }
-
+  // Bubble Sort Algorithm
   bubbleSort() {
     var newArray = this.state.array
     var newSolvedBars = this.state.solvedBars
@@ -53,7 +53,6 @@ export class ArrayShorting extends Component {
               })
             }
           }
-          console.log(newSolvedBars)
           this.setState({
             solvedBars: newSolvedBars,
             array: newArray,
@@ -64,6 +63,36 @@ export class ArrayShorting extends Component {
       }
     }
   }
+
+  // Heap Sort Algorithm
+  heapSort() {
+    var newArray = this.state.array
+    var newSolvedBars = this.state.solvedBars
+
+
+    for (let i = 1; i < newArray.length; i++) {
+      for (let j = 0; j < newArray.length; j++) {
+        setTimeout(() => {
+          if (newArray[j] > newArray[i]) {
+            let temp = newArray[j]
+            newArray[j] = newArray[i]
+            newArray[i] = temp
+          }
+          if (i == newArray.length - 1) {
+            this.setState({
+              arraySolvedComplete: true
+            })
+          }
+          this.setState({
+            array: newArray,
+            bar1: j,
+            bar2: j + 1
+          })
+        }, 0.1);
+      }
+    }
+  }
+
 
   handleArrayLength(value) {
     this.setState({ arrayLength: value })
@@ -86,9 +115,11 @@ export class ArrayShorting extends Component {
             <label htmlFor="slider">{this.state.arrayLength}</label>
             <input id="slider" className="slider" type="range" max={this.state.maxLength} min={this.state.minLenth} defaultValue={this.state.minLenth} onChange={(e) => this.handleArrayLength(e.target.value)} />
           </div>
+          <p className="title">Algorithms</p>
           <button className="btn" onClick={() => this.bubbleSort()} disabled={this.state.arraySolvedComplete}>Bubble Sort</button>
+          <button className="btn" onClick={() => this.heapSort()} disabled={this.state.arraySolvedComplete}>Algorithm 2</button>
         </div>
-        <ul className='bars-wrapper'>
+        <ul className={`bars-wrapper ${this.state.arraySolvedComplete ? 'solved' : ''}`}>
           {
             this.state.array.map((e, key) => {
               return (
